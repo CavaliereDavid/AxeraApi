@@ -40,6 +40,7 @@ public class SqlMeetingRepository : IMeetingRepository
     public async Task<List<Meeting>> GetAllAsync()
     {
         return await dbContext.Meeting
+            .Include("Course")
             .ToListAsync();
     }
 

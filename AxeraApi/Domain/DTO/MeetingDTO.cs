@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AxeraApi.CustomValidationAttribute;
+using AxeraApi.Domain.Models;
 
 namespace AxeraApi.Domain.DTO
 {
@@ -24,7 +25,7 @@ namespace AxeraApi.Domain.DTO
 
         public bool? IsDeleted { get; set; }
 
-        public Guid CourseID { get; set; }
+        public CourseDTO Course { get; set; }
     }
 
     public class CreateMeetingRequestDTO

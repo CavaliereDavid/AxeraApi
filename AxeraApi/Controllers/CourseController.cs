@@ -26,7 +26,7 @@ public class CourseController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ValidationModel]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
     {
         List<Course> courseModel = await courseRepository.GetAllAsync();
 

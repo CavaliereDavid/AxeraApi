@@ -1,5 +1,4 @@
 ﻿using AxeraApi.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AxeraApi.Repositories;
 

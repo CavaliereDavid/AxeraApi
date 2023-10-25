@@ -37,7 +37,7 @@ public class SqlCourseRepository : ICourseRepository
         return existingCourse;
     }
 
-    public async Task<List<Course>> GetAllAsync()
+    public async Task<List<Course>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
     {
         return await dbContext.Course
             .ToListAsync();
