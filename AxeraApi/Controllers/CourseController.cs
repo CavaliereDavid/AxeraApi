@@ -26,9 +26,9 @@ public class CourseController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ValidationModel]
-    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] bool? filterQuery)
     {
-        List<Course> courseModel = await courseRepository.GetAllAsync();
+        List<Course> courseModel = await courseRepository.GetAllAsync(filterOn, filterQuery ?? false);
 
         List<CourseDTO> courseDTO = mapper.Map<List<CourseDTO>>(courseModel);
         return Ok(courseDTO);

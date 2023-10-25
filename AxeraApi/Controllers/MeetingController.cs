@@ -25,9 +25,9 @@ public class MeetingController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ValidationModel]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] bool? filterQuery)
     {
-        List<Meeting> meetingModel = await meetingRepository.GetAllAsync();
+        List<Meeting> meetingModel = await meetingRepository.GetAllAsync(filterOn, filterQuery ?? false);
 
         List<MeetingDTO> meetingDTO = mapper.Map<List<MeetingDTO>>(meetingModel);
         return Ok(meetingDTO);

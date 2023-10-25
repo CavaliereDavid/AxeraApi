@@ -23,9 +23,9 @@ public class UserController : ControllerBase
     /// Get all users.
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] bool? filterQuery)
     {
-        List<User> userModel = await userRepository.GetAllAsync();
+        List<User> userModel = await userRepository.GetAllAsync(filterOn, filterQuery ?? false);
         List<UserDTO> userDTO = mapper.Map<List<UserDTO>>(userModel);
         return Ok(userDTO);
     }

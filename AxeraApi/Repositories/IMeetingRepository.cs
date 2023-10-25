@@ -4,7 +4,7 @@ namespace AxeraApi.Repositories;
 
 public interface IMeetingRepository
 {
-    Task<List<Meeting>> GetAllAsync();
+    Task<List<Meeting>> GetAllAsync(string? filterOn = null, bool? filterQuery = false);
     Task<Meeting?> GetByIdAsync(Guid id);
     Task<Meeting> CreateAsync(Meeting meeting);
     Task<Meeting?> UpdateAsync(Guid id, Meeting meeting);

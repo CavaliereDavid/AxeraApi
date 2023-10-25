@@ -14,11 +14,9 @@ public class ReservationDTO
     public bool? Withdraw { get; set; }
     public bool? IsDeleted { get; set; }
 
-    [Required(ErrorMessage = "MeetingID is required.")]
-    public Guid MeetingID { get; set; }
+    public MeetingDTO Meeting { get; set; }
 
-    [Required(ErrorMessage = "UserID is required.")]
-    public Guid UserID { get; set; }
+    public UserDTO User { get; set; }
 }
 
 public class CreateReservationRequestDTO

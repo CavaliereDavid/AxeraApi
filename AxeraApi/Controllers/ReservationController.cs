@@ -22,9 +22,9 @@ public class ReservationController : ControllerBase
 
     [HttpGet]
     [ValidationModel]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] bool? filterQuery, [FromQuery] string? filterBy)
     {
-        List<Reservation> reservationModel = await reservationRepository.GetAllAsync();
+        List<Reservation> reservationModel = await reservationRepository.GetAllAsync(filterOn, filterQuery ?? false, filterBy);
 
         List<ReservationDTO> reservationDTO = mapper.Map<List<ReservationDTO>>(reservationModel);
         return Ok(reservationDTO);

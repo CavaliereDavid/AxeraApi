@@ -14,7 +14,7 @@ public class UserDTO
     public int Age { get; set; }
 
     [MaxLength(100)]
-    public string ParentFullName { get; set; }
+    public string? ParentFullName { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email address.")]
@@ -42,7 +42,7 @@ public class AddUserRequestDTO
     public int Age { get; set; }
 
     [MaxLength(100)]
-    public string ParentFullName { get; set; }
+    public string? ParentFullName { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email address.")]
@@ -52,7 +52,7 @@ public class AddUserRequestDTO
     public bool? IsNewsletterActive { get; set; }
 
     [MaxLength(500)]
-    public string Allergies { get; set; }
+    public string? Allergies { get; set; }
     public bool? ConsentToPersonalData { get; set; }
     public bool? PrivacyPolicyAcknowledgement { get; set; }
 

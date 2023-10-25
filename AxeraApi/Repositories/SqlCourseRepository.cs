@@ -37,12 +37,19 @@ public class SqlCourseRepository : ICourseRepository
         return existingCourse;
     }
 
-    public async Task<List<Course>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
+    
+    public async Task<List<Course>> GetAllAsync(string? filterOn = null, bool? filterQuery = false)
     {
-        return await dbContext.Course
-            .ToListAsync();
+        var courses = dbContext.Course.AsQueryable();
+        if(string.IsNullOrWhiteSpace(filterOn) == false)
+        {
+            if(filterOn.Equals("IsDeleted", StringComparison.OrdinalIgnoreCase))
+            {
+                courses = filterQuery.HasValue ? courses.Where(x => x.IsDeleted == filterQuery.Value) : courses;
+            }
+        }
+        return await courses.ToListAsync();
     }
-
     public async Task<Course?> GetByIdAsync(Guid id)
     {
         var course =  await dbContext.Course.FirstOrDefaultAsync(x => x.Id == id);

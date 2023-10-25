@@ -37,10 +37,18 @@ public class SqlUserRepository : IUserRepository
         return existingUser;
     }
 
-    public async Task<List<User>> GetAllAsync()
+    public async Task<List<User>> GetAllAsync(string? filterOn = null, bool? filterQuery = false)
     {
-        return await dbContext.User
-            .ToListAsync();
+        var users = dbContext.User.AsQueryable();
+
+        if (string.IsNullOrWhiteSpace(filterOn) == false)
+        {
+            if (filterOn.Equals("IsDeleted", StringComparison.OrdinalIgnoreCase))
+            {
+                users = filterQuery.HasValue ? users.Where(x => x.IsDeleted == filterQuery.Value) : users;
+            }
+        }
+        return await users.ToListAsync();
     }
 
     public async Task<User?> GetByIdAsync(Guid id)

@@ -22,7 +22,7 @@ public class SqlMeetingRepository : IMeetingRepository
 
     public async Task<Meeting?> DeleteAsync(Guid id)
     {
-        var existingMeeting = await dbContext.Meeting.FindAsync(id);
+        var existingMeeting = await dbContext.Meeting.FirstOrDefaultAsync(x => x.Id == id);
 
         if (existingMeeting == null)
         {
@@ -37,16 +37,22 @@ public class SqlMeetingRepository : IMeetingRepository
         return existingMeeting;
     }
 
-    public async Task<List<Meeting>> GetAllAsync()
+    public async Task<List<Meeting>> GetAllAsync(string? filterOn = null, bool? filterQuery = false)
     {
-        return await dbContext.Meeting
-            .Include("Course")
-            .ToListAsync();
+        var meetings = dbContext.Meeting.Include("Course").AsQueryable();
+        if(string.IsNullOrWhiteSpace(filterOn) == false)
+        {
+            if(filterOn.Equals("IsDeleted", StringComparison.OrdinalIgnoreCase))
+            {
+                meetings = filterQuery.HasValue ? meetings.Where(x => x.IsDeleted == filterQuery.Value) : meetings;
+            }
+        }
+        return await meetings.ToListAsync();
     }
 
     public async Task<Meeting?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Meeting.FirstOrDefaultAsync(x => x.Id == id);
+        return await dbContext.Meeting.Include("Course").FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Meeting?> SoftDeleteAsync(Guid id)

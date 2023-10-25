@@ -4,7 +4,7 @@ namespace AxeraApi.Repositories;
 
 public interface IReservationRepository
 {
-    Task<List<Reservation>> GetAllAsync();
+    Task<List<Reservation>> GetAllAsync(string? filterOn = null, bool? filterQuery = false, string? filterBy = null);
     Task<Reservation?> GetByIdAsync(Guid id);
     Task<Reservation> CreateAsync(Reservation reservation);
     Task<Reservation?> UpdateAsync(Guid id, Reservation reservation);
